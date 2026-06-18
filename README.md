@@ -75,6 +75,3 @@ npm start
 - `npm start` — run production server
 - `npm run lint` — run ESLint
 
-## Deployment
-
-This app can be deployed on Vercel or any platform that supports Next.js. Make sure your environment includes the database URL and any auth-related secrets.
