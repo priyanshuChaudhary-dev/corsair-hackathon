@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inbox Orbit
 
-## Getting Started
+Inbox Orbit is a Next.js app that unifies Gmail and Google Calendar into a polished productivity dashboard. It includes email+calendar landing pages, auth routes, Prisma-backed user signup/login, and a professional marketing site with pricing and contact pages.
 
-First, run the development server:
+## Features
+
+- Landing page with marketing content and official footer
+- Signup and login with email/password authentication
+- Auth API routes under `src/app/api/auth`
+- Dashboard redirect after successful login/signup
+- Pricing page at `/pricing`
+- Contact page at `/contact`
+- Prisma + PostgreSQL for user data
+- Cookie-based auth token storage
+
+## Pages
+
+- `/` — homepage
+- `/signup` — signup page with full name, email, and password
+- `/login` — login page
+- `/dashboard` — authenticated dashboard
+- `/pricing` — pricing page
+- `/contact` — contact page
+
+## Local Setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env` file with your database connection and any required secrets.
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open the app in your browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If port `3000` is occupied, Next.js will automatically use the next available port.
 
-## Learn More
+## Build & Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Code Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/layout.tsx` — root layout and metadata
+- `src/app/page.tsx` — homepage landing page
+- `src/app/signup/page.tsx` — signup flow
+- `src/app/login/page.tsx` — login flow
+- `src/app/dashboard/page.tsx` — dashboard page
+- `src/app/pricing/page.tsx` — pricing page
+- `src/app/contact/page.tsx` — contact page
+- `src/app/api/auth/signup/route.ts` — signup API route
+- `src/app/api/auth/login/route.ts` — login API route
+- `src/lib/auth.ts` — auth helpers
+- `src/lib/db.ts` — Prisma client setup
+- `prisma/schema.prisma` — database schema
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` — start development server
+- `npm run build` — build production app
+- `npm start` — run production server
+- `npm run lint` — run ESLint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+This app can be deployed on Vercel or any platform that supports Next.js. Make sure your environment includes the database URL and any auth-related secrets.
