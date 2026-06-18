@@ -6,8 +6,11 @@ const scryptAsync = promisify(crypto.scrypt);
 const AUTH_SECRET = process.env.AUTH_SECRET;
 const AUTH_COOKIE = "inbox-orbit-auth";
 
-if (!AUTH_SECRET) {
-    throw new Error("AUTH_SECRET environment variable is required for authentication.");
+function getAuthSecret() {
+    if (!AUTH_SECRET) {
+        throw new Error("AUTH_SECRET environment variable is required for authentication.");
+    }
+    return AUTH_SECRET;
 }
 
 function base64UrlEncode(input: string | Buffer) {
@@ -40,7 +43,7 @@ export function createToken(userId: string) {
     const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
     const payload = base64UrlEncode(JSON.stringify({ sub: userId, exp }));
     const signature = crypto
-        .createHmac("sha256", AUTH_SECRET)
+        .createHmac("sha256", getAuthSecret())
         .update(`${header}.${payload}`)
         .digest("base64")
         .replace(/\+/g, "-")
@@ -54,7 +57,7 @@ export function verifyToken(token: string) {
     if (parts.length !== 3) return null;
     const [header, payload, signature] = parts;
     const expected = crypto
-        .createHmac("sha256", AUTH_SECRET)
+        .createHmac("sha256", getAuthSecret())
         .update(`${header}.${payload}`)
         .digest("base64")
         .replace(/\+/g, "-")
